@@ -1,0 +1,4 @@
+Name,LastName,Intitutional Employee Code,From Date,To Date,Institution Code,Salary,Discounts
+Leonel,Santiago,FA211314,20/01/2018,20/01/2018,SDSS342342,50000,10000
+Pedro,Carmona,FA211314,20/01/2018,20/01/2018,SDSS342342,50000,10000
+Vyzaldy,Sanchez,FA211314,20/01/2018,20/01/2018,SDSS342342,50000,10000
