@@ -15,5 +15,6 @@ namespace FilesIntegration.Models
 
         public DbSet<CSVEmployeeData> CsvEmployeeData { get; set; }
         public DbSet<EmployeeAttachment> EmployeeAttachment { get; set; }
+        public DbSet<AccountingSeat> AccountingSeat { get; set; }
     }
 }

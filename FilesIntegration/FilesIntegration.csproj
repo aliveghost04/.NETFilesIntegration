@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -149,6 +150,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CSVManagerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\XMLManagerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -161,6 +163,7 @@
       <DependentUpon>201801200804567_AddOfTableForAttachedEmployees.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountingSeat.cs" />
     <Compile Include="Models\CSVEmployeeData.cs" />
     <Compile Include="Models\EmployeeAttachment.cs" />
     <Compile Include="Models\FilesIntegrationDb.cs" />
@@ -207,9 +210,12 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\CSVManager\PushCsvIndex.cshtml" />
     <Content Include="Views\CSVManager\PullCsvIndex.cshtml" />
+    <Content Include="Views\XMLManager\PullXmlIndex.cshtml" />
+    <Content Include="Views\XMLManager\PushXmlIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Files\Xml\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

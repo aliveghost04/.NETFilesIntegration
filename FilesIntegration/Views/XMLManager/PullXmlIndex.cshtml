@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Guardar CSV";
+}
+
+<div class="jumbotron">
+    <h1>Adjuntar archivo con asiento contable a guardar</h1>
+    @using (Html.BeginForm("PullXml","XMLManager",FormMethod.Post, new {enctype="multipart/form-data"}))
+    { 
+ 
+        <input type="file" name="FileUpload" />
+        <input type="submit" name="Submit" id="Submit" value="Upload" />
+ 
+    }
+ 
+    <p>@ViewBag.Message</p>
+</div>
