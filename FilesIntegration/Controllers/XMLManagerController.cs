@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Caching;
 using System.Web.Mvc;
 using FilesIntegration.Models;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace FilesIntegration.Controllers
 {
@@ -54,9 +56,26 @@ namespace FilesIntegration.Controllers
             return View();
         }
 
-        public ActionResult PushXml()
+        public void PushXml()
         {
-            return View("PushXmlIndex");
+
+            var accountinSeats = new XDocument(new XDeclaration("1.0", "UTF - 8", "yes"),
+                new XElement("AccountingSeats",
+                from seat in _db.AccountingSeat.ToList()
+                select new XElement("Seats",
+                    new XElement("AccountSeatNumber", seat.AccountSeatNumber),
+                    new XElement("SeatDescription", seat.SeatDescription),
+                    new XElement("SeatDate", seat.SeatDate),
+                    new XElement("AccountingAccount", seat.AccountingAccount),
+                    new XElement("MovementType", seat.MovementType),
+                    new XElement("MovementAmount", seat.MovementAmount))));
+            //accountinSeats.Save(Server.MapPath(@"~/Files/Xml")
+            var response = System.Web.HttpContext.Current.Response;
+            response.AddHeader("content-disposition", "attachment;filename=Asiento.xml");
+            response.ContentType = "text/plain";
+            response.Write(accountinSeats.ToString());
+            response.End();
+            //return View("PushXmlIndex", accountinSeats);
         }
     }
 }
