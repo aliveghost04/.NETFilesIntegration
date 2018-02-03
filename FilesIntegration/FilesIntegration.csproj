@@ -162,8 +162,12 @@
     <Compile Include="Migrations\201801200804567_AddOfTableForAttachedEmployees.Designer.cs">
       <DependentUpon>201801200804567_AddOfTableForAttachedEmployees.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802030652150_addOfEntityFormXmlParse.cs" />
+    <Compile Include="Migrations\201802030652150_addOfEntityFormXmlParse.Designer.cs">
+      <DependentUpon>201802030652150_addOfEntityFormXmlParse.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountingSeat.cs" />
+    <Compile Include="Models\XmlAccountingSeat.cs" />
     <Compile Include="Models\CSVEmployeeData.cs" />
     <Compile Include="Models\EmployeeAttachment.cs" />
     <Compile Include="Models\FilesIntegrationDb.cs" />
@@ -175,6 +179,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Files\Csv\employee.csv.txt" />
+    <Content Include="Files\Xml\Asiento.xml.txt" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -215,7 +220,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Files\Xml\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -238,6 +242,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801200804567_AddOfTableForAttachedEmployees.resx">
       <DependentUpon>201801200804567_AddOfTableForAttachedEmployees.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802030652150_addOfEntityFormXmlParse.resx">
+      <DependentUpon>201802030652150_addOfEntityFormXmlParse.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

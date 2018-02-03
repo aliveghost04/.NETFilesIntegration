@@ -21,26 +21,28 @@ namespace FilesIntegration.Controllers
         {
             var attachedFile = Request.Files["FileUpload"];
             var document = new XmlDocument();
-            List<AccountingSeat> accountingSeat = new List<AccountingSeat>();
 
             if (attachedFile != null) document.Load(attachedFile.InputStream);
             //document.Load(Server.MapPath("~/Files/Xml/Asiento.xml"));
 
 
             //Loop through the selected Nodes.
-            foreach (XmlNode node in document.SelectNodes("/Asiento/Asiento"))
+            foreach (XmlNode node in document.SelectNodes("/AccountingSeat/Seat"))
             {
-                //Fetch the Node values and assign it to Model.
-                _db.AccountingSeat.Add(new AccountingSeat
+                var parsedSeatDate = DateTime.ParseExact(node["SeatDate"].InnerText, "dd/MM/yyyy", null);
+
+                var accountingSeat = new XmlAccountingSeat
                 {
-                    AccountSeatNumber = Convert.ToInt16(node["AccountSeatNumber"].InnerText),
+                    AccountSeatNumber = Convert.ToInt32(node["AccountSeatNumber"].InnerText),
                     SeatDescription = node["SeatDescription"].InnerText,
-                    SeatDate = Convert.ToDateTime(node["SeatDate"].InnerText),
-                    AccountingAccount = Convert.ToDateTime(node["SeatDate"].InnerText),
-                    MovementType = Convert.ToInt16(node["SeatDate"].InnerText),
-                    MovementAmount = Convert.ToDecimal(node["SeatDate"].InnerText)
-                });
-                
+                    SeatDate = parsedSeatDate,
+                    AccountingAccount = Convert.ToInt32(node["AccountingAccount"].InnerText),
+                    MovementType = Convert.ToInt32(node["MovementType"].InnerText),
+                    MovementAmount = Convert.ToDecimal(node["MovementAmount"].InnerText)
+                };
+                //Fetch the Node values and assign it to Model.
+                _db.AccountingSeat.Add(accountingSeat);
+
             }
             _db.SaveChanges();
 
