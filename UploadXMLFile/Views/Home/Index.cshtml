@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        @if (ViewBag.Error != null)
+        {
+        <div class="alert alert-danger">@ViewBag.Error</div>
+        }
+        @if (ViewBag.Success != null) {
+        <div class="alert alert-success">Archivo enviado exitosamente</div>
+        }
+        @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <h4>Envia un asiento por web services</h4>
+        <div class="form-group">
+            <input type="file" name="FileUpload" accept="application/xml" />
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-submit">Enviar Archivo</button>
+        </div>
+}
+    </div>
+</div>

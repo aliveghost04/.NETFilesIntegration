@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Generar XML";
+}
+
+<div class="jumbotron">
+    <h1>Exportar XML</h1>
+    @using (Html.BeginForm("Push", "XMLManager", FormMethod.Post))
+    {
+       <button type="submit"
+               class="btn btn-primary">
+            Exportar XML
+       </button>
+    }
+</div>
+

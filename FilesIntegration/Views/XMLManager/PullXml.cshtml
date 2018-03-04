@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Guardar XML";
+}
+
+<div class="jumbotron">
+    <h1>Adjuntar archivo con asiento contable a guardar</h1>
+    @using (Html.BeginForm("Pull", "XMLManager", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        <input type="file" name="FileUpload" accept="application/xml" />
+        <input type="submit" name="Submit" id="Submit" value="Upload" />
+
+    }
+
+
+</div>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+@if (ViewBag.Success != null)
+{
+    <div class="alert alert-success">Asiento registrado con éxito</div>
+}

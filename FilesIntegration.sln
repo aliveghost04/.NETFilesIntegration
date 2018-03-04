@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilesIntegration", "FilesIntegration\FilesIntegration.csproj", "{A04814DC-04D3-44B1-BA09-93006CA9A51A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UploadXMLFile", "UploadXMLFile\UploadXMLFile.csproj", "{EDA08523-EA78-4AC1-A70D-D966B56824BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{A04814DC-04D3-44B1-BA09-93006CA9A51A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A04814DC-04D3-44B1-BA09-93006CA9A51A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A04814DC-04D3-44B1-BA09-93006CA9A51A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDA08523-EA78-4AC1-A70D-D966B56824BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDA08523-EA78-4AC1-A70D-D966B56824BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDA08523-EA78-4AC1-A70D-D966B56824BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDA08523-EA78-4AC1-A70D-D966B56824BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {538ED9DB-9829-4865-9093-472918305FEF}
 	EndGlobalSection
 EndGlobal

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using FilesIntegration.Models;
 using System.Xml;
 using System.Xml.Linq;
+using System.Net;
 
 namespace FilesIntegration.Controllers
 {
@@ -14,49 +15,74 @@ namespace FilesIntegration.Controllers
     {
         FilesIntegrationDb _db = new FilesIntegrationDb();
 
-        public ActionResult PullXmlIndex()
-        {
-            return View();
+        public ActionResult Index() {
+            return RedirectToAction("Pull");
         }
 
-        public ActionResult PullXml()
+        [HttpGet]
+        [ActionName("Pull")]
+        public ActionResult PullGet()
+        {
+            return View("PullXml");
+        }
+
+        [HttpPost]
+        [ActionName("Pull")]
+        public ActionResult PullPost()
         {
             var attachedFile = Request.Files["FileUpload"];
             var document = new XmlDocument();
-
-            if (attachedFile != null) document.Load(attachedFile.InputStream);
-            //document.Load(Server.MapPath("~/Files/Xml/Asiento.xml"));
-
-
-            //Loop through the selected Nodes.
-            foreach (XmlNode node in document.SelectNodes("/AccountingSeat/Seat"))
+            
+            if (attachedFile != null)
             {
-                var parsedSeatDate = DateTime.ParseExact(node["SeatDate"].InnerText, "dd/MM/yyyy", null);
+                document.Load(attachedFile.InputStream);
 
-                var accountingSeat = new XmlAccountingSeat
+                //Loop through the selected Nodes.
+                foreach (XmlNode node in document.SelectNodes("/AccountingSeat/Seat"))
                 {
-                    AccountSeatNumber = Convert.ToInt32(node["AccountSeatNumber"].InnerText),
-                    SeatDescription = node["SeatDescription"].InnerText,
-                    SeatDate = parsedSeatDate,
-                    AccountingAccount = Convert.ToInt32(node["AccountingAccount"].InnerText),
-                    MovementType = Convert.ToInt32(node["MovementType"].InnerText),
-                    MovementAmount = Convert.ToDecimal(node["MovementAmount"].InnerText)
-                };
-                //Fetch the Node values and assign it to Model.
-                _db.AccountingSeat.Add(accountingSeat);
+                    var parsedSeatDate = DateTime.ParseExact(node["SeatDate"].InnerText, "dd/MM/yyyy", null);
 
+                    var accountingSeat = new XmlAccountingSeat
+                    {
+                        AccountSeatNumber = Convert.ToInt32(node["AccountSeatNumber"].InnerText),
+                        SeatDescription = node["SeatDescription"].InnerText,
+                        SeatDate = parsedSeatDate,
+                        AccountingAccount = Convert.ToInt32(node["AccountingAccount"].InnerText),
+                        MovementType = Convert.ToInt32(node["MovementType"].InnerText),
+                        MovementAmount = Convert.ToDecimal(node["MovementAmount"].InnerText)
+                    };
+                    //Fetch the Node values and assign it to Model.
+                    _db.AccountingSeat.Add(accountingSeat);
+                }
+
+                try
+                {
+                    _db.SaveChanges();
+                    ViewBag.Success = true;
+                    Response.StatusCode = (int) HttpStatusCode.OK;
+                }
+                catch (Exception e) {
+                    ViewBag.Error = e.Message;
+                    Response.StatusCode = (int) HttpStatusCode.InternalServerError;
+                }
+            } else
+            {
+                ViewBag.Error = "No se ha enviado el archivo";
             }
-            _db.SaveChanges();
 
-            return View("PullXmlIndex");
+            return View("PullXml");
         }
 
-        public ActionResult PushXmlIndex()
+        [HttpGet]
+        [ActionName("Push")]
+        public ActionResult PushXmlGet()
         {
-            return View();
+            return View("PushXml");
         }
 
-        public void PushXml()
+        [HttpPost]
+        [ActionName("Push")]
+        public void PushXmlPost()
         {
 
             var accountinSeats = new XDocument(new XDeclaration("1.0", "UTF - 8", "yes"),
@@ -68,14 +94,16 @@ namespace FilesIntegration.Controllers
                     new XElement("SeatDate", seat.SeatDate),
                     new XElement("AccountingAccount", seat.AccountingAccount),
                     new XElement("MovementType", seat.MovementType),
-                    new XElement("MovementAmount", seat.MovementAmount))));
-            //accountinSeats.Save(Server.MapPath(@"~/Files/Xml")
+                    new XElement("MovementAmount", seat.MovementAmount))
+                )
+            );
+            
             var response = System.Web.HttpContext.Current.Response;
-            response.AddHeader("content-disposition", "attachment;filename=Asiento.xml");
-            response.ContentType = "text/plain";
+
+            response.AddHeader("content-disposition", "attachment;filename=Asientos.xml");
+            response.ContentType = "application/xml";
             response.Write(accountinSeats.ToString());
             response.End();
-            //return View("PushXmlIndex", accountinSeats);
         }
     }
 }
